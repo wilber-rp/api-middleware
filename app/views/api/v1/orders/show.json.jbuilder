@@ -1,0 +1,20 @@
+  json.extract! @order, :id,
+                        :order_number,
+                        :model,
+                        :deceased_name,
+                        :costumer_full_name,
+                        :cpf,
+                        :company_name,
+                        :cnpj,
+                        :ie,
+                        :address,
+                        :number,
+                        :complement,
+                        :neighborhood,
+                        :city,
+                        :state,
+                        :zip_code,
+                        :email,
+                        :phone_number
+json.extract! @order.source, :name
+json.extract! @order.payment, :description, :installment
