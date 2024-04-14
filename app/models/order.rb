@@ -23,12 +23,8 @@ class Order < ApplicationRecord
 
   def cpf_or_cnpj
     errors.add(:base, "CPF ou CNPJ deve estar presente") if cpf.nil? && cnpj.nil?
-    if cpf? && cpf.size != 11
-      errors.add(:base, "CPF inválido")
-    end
-    if cnpj? && cnpj.size != 14
-      errors.add(:base, "CNPJ inválido")
-    end
+    errors.add(:base, "CPF inválido") if cpf? && cpf.size != 11
+    errors.add(:base, "CNPJ inválido") if cnpj? && cnpj.size != 14
   end
 
   def cpf_present?
