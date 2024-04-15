@@ -47,6 +47,8 @@ class Api::V1::OrdersController < Api::V1::BaseController
       order.zip_code = json_data['estabelecimento']['cep']
       if json_data["estabelecimento"].present? && json_data["estabelecimento"]["inscricoes_estaduais"].present?
         order.ie = json_data["estabelecimento"]["inscricoes_estaduais"].first["inscricao_estadual"]
+      else
+        order.ie = nil
       end
     else
       sleep(60)
