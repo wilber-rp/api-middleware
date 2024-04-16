@@ -2,7 +2,19 @@ class Api::V1::OrdersController < Api::V1::BaseController
   before_action :permissions_scope
 
   def index
-    @orders = Order.all
+    if params[:date].present?
+      date_string = params[:date]
+      date = Date.strptime(date_string, '%Y%m%d')
+      @orders = Order.where(created_at: date.beginning_of_day..date.end_of_day)
+
+    elsif params[:start].present? && params[:end].present?
+      start_date = params[:start].present? ? Date.strptime(params[:start], '%Y%m%d') : Date.new(1970, 1, 1)
+      end_date = params[:end].present? ? Date.strptime(params[:end], '%Y%m%d') : Date.today
+      @orders = Order.where(created_at: start_date.beginning_of_day..end_date.end_of_day)
+
+    else
+      render_no_parameters
+    end
   end
 
   def show
@@ -56,6 +68,11 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
   def render_no_access
     render json: { error: "Sem permissão para realizar #{request.method}" },
+    status: :unprocessable_entity
+  end
+
+  def render_no_parameters
+    render json: { error: "Parametros necessários" },
     status: :unprocessable_entity
   end
 end
