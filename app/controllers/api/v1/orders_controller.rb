@@ -5,12 +5,12 @@ class Api::V1::OrdersController < Api::V1::BaseController
     if params[:date].present?
       date_string = params[:date]
       date = Date.strptime(date_string, '%Y%m%d')
-      @orders = Order.where(created_at: date.beginning_of_day..date.end_of_day)
+      @orders = Order.where(created_at: date.beginning_of_day..date.end_of_day).order(created_at: :asc)
 
     elsif params[:start].present? && params[:end].present?
       start_date = params[:start].present? ? Date.strptime(params[:start], '%Y%m%d') : Date.new(1970, 1, 1)
       end_date = params[:end].present? ? Date.strptime(params[:end], '%Y%m%d') : Date.today
-      @orders = Order.where(created_at: start_date.beginning_of_day..end_date.end_of_day)
+      @orders = Order.where(created_at: start_date.beginning_of_day..end_date.end_of_day).order(created_at: :asc)
 
     else
       render_no_parameters

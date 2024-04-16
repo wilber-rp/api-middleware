@@ -21,7 +21,7 @@ class UpdateCompanyJob < ApplicationJob
       end
     else
       sleep(62)
-      perform(order_id, cnpj)
+      UpdateCompanyJob.perform_later(order_id, cnpj)
     end
     order.save!
   end
