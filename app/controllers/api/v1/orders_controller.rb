@@ -46,7 +46,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
   private
 
   def order_params
-    params.require(:order).permit(:order_number, :address, :model, :deceased_name,:costumer_full_name, :cpf, :company_name, :cnpj, :ie, :address, :number, :complement, :neighborhood, :city, :state, :zip_code, :email, :phone_number, :no_invoice )
+    params.require(:order).permit(:order_number, :address, :model, :deceased_name, :costumer_full_name, :cpf, :company_name, :cnpj, :ie, :address, :number, :complement, :neighborhood, :city, :state, :zip_code, :email, :phone_number, :no_invoice )
   end
 
   def permissions_scope

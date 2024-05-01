@@ -27,7 +27,7 @@ class Order < ApplicationRecord
     errors.add(:base, "CNPJ inválido") if cnpj? && cnpj.size != 14
   end
 
-  def cpf_present?
-    cpf.present?
-  end
+  # def cpf_present?
+  #   cpf.present?
+  # end
 end
